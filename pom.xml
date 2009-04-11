@@ -2,8 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>twitter4s</groupId>
   <artifactId>twitter4s</artifactId>
+  <name>twitter4s</name>
   <version>1.0-SNAPSHOT</version>
-  <inceptionYear>2008</inceptionYear>
+  <inceptionYear>2009</inceptionYear>
   <properties>
     <scala.version>2.7.0</scala.version>
   </properties>
