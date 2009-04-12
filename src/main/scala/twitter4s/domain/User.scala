@@ -29,4 +29,7 @@ class User(x:NodeSeq) {
   def profileSidebarBorderColor = (x \ "profile_sidebar_border_color").text
   def profileBackgroundImageURL = (x \ "profile_background_image_url").text
   def profileBackgroundTile     = (x \ "profile_background_tile").text.toBoolean
+
+	//FIXME this makes the test pass, but we need to lazy load *and* memoize 
+	def status										= new Status((x \ "status"))
 }

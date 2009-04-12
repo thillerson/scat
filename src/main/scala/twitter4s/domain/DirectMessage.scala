@@ -12,4 +12,8 @@ class DirectMessage(x:NodeSeq) {
   def senderId				      = (x \ "sender_id").text.toLong
   def recipientScreenName   = (x \ "recipient_screen_name").text
   def recipientId						= (x \ "recipient_id").text.toLong
+
+	//FIXME These make the tests pass, but they should be lazy *and* memoized
+	def sender								= new User((x \ "sender"))
+	def recipient							= new User((x \ "recipient"))
 }

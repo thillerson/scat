@@ -14,4 +14,7 @@ class Status(x:NodeSeq) {
   def inReplyToStatusId     = (x \ "in_reply_to_status_id").text.toLong
   def inReplyToUserId       = (x \ "in_reply_to_user_id").text.toLong
   def inReplyToScreenName   = (x \ "in_reply_to_screen_name").text
+
+	// FIXME this makes the tests pass, but should be lazy *and* memoized
+	def user									= new User((x \ "user"))
 }

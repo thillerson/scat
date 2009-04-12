@@ -40,6 +40,11 @@ object TwitterObjectsTest extends Specification {
       user.timeZone must beMatching(".*(US & Canada)")
       user.createdAt.isEqual(new DateTime(2007, 5, 6, 21, 05, 23, 0, DateTimeZone.UTC)) must beTrue
     }
+		
+		"should have a status" in {
+			val user = new User(userXML)
+			user.status.id must_== 1500329547L
+		}
   }
 
 	"A Status Message" should {
@@ -55,6 +60,11 @@ object TwitterObjectsTest extends Specification {
 			status.inReplyToScreenName mustEqual("dacort")
       status.createdAt.isEqual(new DateTime(2009, 4, 12, 3, 39, 45, 0, DateTimeZone.UTC)) must beTrue
 		}
+		
+		"should have a user" in {
+			val status = new Status(statusWithReplyTo)
+			status.user.id must_== 18713L
+		}
 	}
 		
 	"A Direct Message" should {
@@ -67,6 +77,12 @@ object TwitterObjectsTest extends Specification {
 			dm.senderScreenName mustEqual("andymcintosh")
 			dm.recipientScreenName mustEqual("thillerson")
       dm.createdAt.isEqual(new DateTime(2009, 4, 9, 17, 45, 26, 0, DateTimeZone.UTC)) must beTrue
+		}
+		
+		"should have a sender and recipient" in {
+			val dm = new DirectMessage(dmXML)
+			dm.sender.id must_== 8398792L
+			dm.recipient.id must_== 5815992L
 		}
 	}
 
