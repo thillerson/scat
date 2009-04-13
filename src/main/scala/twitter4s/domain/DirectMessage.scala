@@ -5,15 +5,14 @@ import org.joda.time._;
 
 class DirectMessage(x:NodeSeq) {
 
-  def id                    = (x \ "id").text.toLong
-  def text                  = (x \ "text").text
-  def createdAt             = DomainUtils.STD_DATE_TIME_FORMATTER.parseDateTime((x \ "created_at").text)
-  def senderScreenName      = (x \ "sender_screen_name").text
-  def senderId				      = (x \ "sender_id").text.toLong
-  def recipientScreenName   = (x \ "recipient_screen_name").text
-  def recipientId						= (x \ "recipient_id").text.toLong
+  lazy val id                   = (x \ "id").text.toLong
+  lazy val text                 = (x \ "text").text
+  lazy val createdAt            = DomainUtils.STD_DATE_TIME_FORMATTER.parseDateTime((x \ "created_at").text)
+  lazy val senderScreenName     = (x \ "sender_screen_name").text
+  lazy val senderId				      = (x \ "sender_id").text.toLong
+  lazy val recipientScreenName  = (x \ "recipient_screen_name").text
+  lazy val recipientId					= (x \ "recipient_id").text.toLong
 
-	//FIXME These make the tests pass, but they should be lazy *and* memoized
-	def sender								= new User((x \ "sender"))
-	def recipient							= new User((x \ "recipient"))
+	lazy val sender								= new User((x \ "sender"))
+	lazy val recipient						= new User((x \ "recipient"))
 }

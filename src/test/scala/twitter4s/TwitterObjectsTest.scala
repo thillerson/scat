@@ -16,6 +16,7 @@ object TwitterObjectsTest extends Specification {
     "deserialize from xml" in {
       val user = new User(userXML)
       user.id must_== 5815992L
+      user.id must_== 5815992L
       user.name must beMatching("Tony Hillerson")
       user.screenName must beMatching("thillerson")
       user.location must beMatching("Arvada")

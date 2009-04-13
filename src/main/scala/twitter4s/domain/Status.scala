@@ -5,16 +5,15 @@ import org.joda.time._;
 
 class Status(x:NodeSeq) {
 
-  def id                    = (x \ "id").text.toLong
-  def text                  = (x \ "text").text
-  def source                = (x \ "source").text
-  def createdAt             = DomainUtils.STD_DATE_TIME_FORMATTER.parseDateTime((x \ "created_at").text)
-  def truncated             = (x \ "truncated").text.toBoolean
-  def favorited             = (x \ "favorited").text.toBoolean
-  def inReplyToStatusId     = (x \ "in_reply_to_status_id").text.toLong
-  def inReplyToUserId       = (x \ "in_reply_to_user_id").text.toLong
-  def inReplyToScreenName   = (x \ "in_reply_to_screen_name").text
+  lazy val id                    = (x \ "id").text.toLong
+  lazy val text                  = (x \ "text").text
+  lazy val source                = (x \ "source").text
+  lazy val createdAt             = DomainUtils.STD_DATE_TIME_FORMATTER.parseDateTime((x \ "created_at").text)
+  lazy val truncated             = (x \ "truncated").text.toBoolean
+  lazy val favorited             = (x \ "favorited").text.toBoolean
+  lazy val inReplyToStatusId     = (x \ "in_reply_to_status_id").text.toLong
+  lazy val inReplyToUserId       = (x \ "in_reply_to_user_id").text.toLong
+  lazy val inReplyToScreenName   = (x \ "in_reply_to_screen_name").text
 
-	// FIXME this makes the tests pass, but should be lazy *and* memoized
-	def user									= new User((x \ "user"))
+	lazy val user									 = new User((x \ "user"))
 }
