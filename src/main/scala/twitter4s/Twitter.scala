@@ -1,16 +1,19 @@
 package twitter4s
 
+import _root_.scala.xml.{Node}
+import scala.xml.XML
 import twitter4s.domain._
-import twitter4s.httpClient._
+import twitter4s.httpClient.{HTTPClient}
 
 class Twitter(username:Option[String], password:Option[String], httpClient:HTTPClient) {
 	
 	def this(username:Option[String], password:Option[String]) = this(username, password, new HTTPClient(username, password))
+	def this() = this(None, None)
 	def this(username:String, password:String) = this(Some(username), Some(password))
 	def this(username:String, password:String, httpClient:HTTPClient) = this(Some(username), Some(password), httpClient)
-	def this() = this(None, None)
 	
 	val twitterUrl = "http://twitter.com"
+	val statusesPath = twitterUrl + "/statuses"
 	val accountPath = twitterUrl + "/account"
 	val usersPath = twitterUrl + "/users"
 	
@@ -24,19 +27,25 @@ class Twitter(username:Option[String], password:Option[String], httpClient:HTTPC
 	def timeline()												= ()
 	def tweet(body:String)								= ()
 	def deleteStatus(id:Int)							= ()
-	def getStatus(id:Int):Array[Status]		= null
-	def getReplies():Array[Status]				= null
-	def getDMs():Array[Status]						= null
-	def getSentDMs():Array[Status]				= null
+	def getStatus(id:Int):List[Status]		= null
+	def getReplies():List[Status]					= null
+	def getDMs():List[Status]							= null
+	def getSentDMs():List[Status]					= null
 	def destroyDM(id:Int)									= ()
 	def follow(user:String)								= ()
 	def unfollow(user:String)							= ()
 	def block(user:String)								= ()
 	def unblock(user:String)							= ()
-	def getFavorites():Array[Status]			= null
+	def getFavorites():List[Status]				= null
 	def favorite(id:Int)									= ()
 	def unfavorite(id:Int)								= ()
-	def publicTimeline()									= ()
+	
+	def publicTimeline():List[Status]			= {
+		val (statusCode, result) = httpClient.get(statusesPath + "/public_timeline.xml")
+		val statuses = (XML.loadString(result) \\ "status")
+		val statusSeq = for (statusNode:Node <- statuses) yield new Status(statusNode)
+		statusSeq.toList
+	}
 	
 	def getMe():User											= {
 		val (statusCode, result) = httpClient.get(String.format("%s/%s.xml", usersPath, username.get))

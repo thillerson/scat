@@ -10,6 +10,20 @@ import twitter4s.httpClient._
 
 object APITest extends TwitterMock {
 	
+	"The unauthenticated Twitter service wrapper" should {
+		doBefore { init }
+		"get the public timline" in {
+			expect {
+				one(httpClient).get("http://twitter.com/statuses/public_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+			}
+			
+			val timeline = twitter.publicTimeline
+			timeline.size must_== 20
+			val firstStatus = timeline(0)
+			firstStatus.id must_== 1556513084L
+		}
+	}
+	
 	"The authenticated Twitter service wrapper" should {
 		doBefore { init }
 		
@@ -37,9 +51,12 @@ object APITest extends TwitterMock {
 trait TwitterMock extends Specification with JMocker with ClassMocker {
 	var httpClient:HTTPClient = _
 	var authenticatedTwitter:Twitter = _
+	var twitter:Twitter = _
+	
 	def init = {
 		httpClient = mock[HTTPClient]
 		authenticatedTwitter = new Twitter("foo", "bar", httpClient)
+		twitter = new Twitter(None, None, httpClient)
 	}
 }
 
