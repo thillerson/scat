@@ -1,13 +1,26 @@
 package twitter4s
 
 import twitter4s.domain._
+import twitter4s.httpClient._
 
-object Twitter {
+class Twitter(username:Option[String], password:Option[String], httpClient:HTTPClient) {
 	
-	def authenticate(
-		username:String, 
-		password:String)										= ()
-	def authenticated_?():Boolean					= true
+	def this(username:Option[String], password:Option[String]) = this(username, password, new HTTPClient(username, password))
+	def this(username:String, password:String) = this(Some(username), Some(password))
+	def this(username:String, password:String, httpClient:HTTPClient) = this(Some(username), Some(password), httpClient)
+	def this() = this(None, None)
+	
+	val twitterUrl = "http://twitter.com"
+	val accountPath = twitterUrl + "/account"
+	val usersPath = twitterUrl + "/users"
+	
+	def hasCredentials_?():Boolean				= password != None
+	
+	def authenticated_?():Boolean					= {
+		val (statusCode, result) = httpClient.get(accountPath + "/verify_credentials.xml")
+		statusCode == HTTPClient.OK
+	}
+	
 	def timeline()												= ()
 	def tweet(body:String)								= ()
 	def deleteStatus(id:Int)							= ()
@@ -24,6 +37,10 @@ object Twitter {
 	def favorite(id:Int)									= ()
 	def unfavorite(id:Int)								= ()
 	def publicTimeline()									= ()
-	def getMe():User											= null
+	
+	def getMe():User											= {
+		val (statusCode, result) = httpClient.get(String.format("%s/%s.xml", usersPath, username.get))
+		new User(result)
+	}
 	
 }

@@ -4,6 +4,8 @@ import _root_.scala.xml.NodeSeq
 import org.joda.time._;
 
 class User(x:NodeSeq) {
+	
+	def this(xmlString:String) = this(scala.xml.XML.loadString(xmlString))
 
   lazy val id                        = (x \ "id").text.toLong
   lazy val name                      = (x \ "name").text

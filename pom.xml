@@ -6,7 +6,7 @@
   <version>1.0-SNAPSHOT</version>
   <inceptionYear>2009</inceptionYear>
   <properties>
-    <scala.version>2.7.0</scala.version>
+    <scala.version>2.7.3</scala.version>
   </properties>
 
   <repositories>
@@ -45,15 +45,25 @@
     <dependency>
       <groupId>org.specs</groupId>
       <artifactId>specs</artifactId>
-      <version>1.2.5</version>
+      <version>1.4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.7</version>
-      <scope>test</scope>
-  	</dependency>
+      <groupId>org.jmock</groupId>
+      <artifactId>jmock</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <!-- Those are only needed if you want to mock classes -->
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.1_3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.objenesis</groupId>
+      <artifactId>objenesis</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
   <build>
