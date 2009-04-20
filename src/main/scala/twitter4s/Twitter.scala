@@ -24,30 +24,41 @@ class Twitter(username:Option[String], password:Option[String], httpClient:HTTPC
 		statusCode == HTTPClient.OK
 	}
 	
-	def timeline()												= ()
-	def tweet(body:String)								= ()
-	def deleteStatus(id:Int)							= ()
-	def getStatus(id:Int):List[Status]		= null
-	def getReplies():List[Status]					= null
-	def getDMs():List[Status]							= null
-	def getSentDMs():List[Status]					= null
-	def destroyDM(id:Int)									= ()
-	def follow(user:String)								= ()
-	def unfollow(user:String)							= ()
-	def block(user:String)								= ()
-	def unblock(user:String)							= ()
-	def getFavorites():List[Status]				= null
-	def favorite(id:Int)									= ()
-	def unfavorite(id:Int)								= ()
-	
-	def publicTimeline():List[Status]			= {
-		val (statusCode, result) = httpClient.get(statusesPath + "/public_timeline.xml")
-		val statuses = (XML.loadString(result) \\ "status")
-		val statusSeq = for (statusNode:Node <- statuses) yield new Status(statusNode)
-		statusSeq.toList
+	def friendsTimeline():List[Status]							 			= {
+		val (statusCode, result) = httpClient.get(statusesPath + "/friends_timeline.xml")
+		Status.fromXMLList(XML.loadString(result))
 	}
 	
-	def getMe():User											= {
+	def userTimeline():List[Status]							 					= null
+	def tweet(body:String):Status									 				= null
+	def tweet(body:String, inReplyToId:Int):Status				= null
+	def getStatus(id:Int):Status						 							= null
+	def deleteStatus(id:Int):Status					 							= null
+	def replies():List[Status]							 							= null
+	def mentions():List[Status]							 							= null
+	def directMessages():List[DirectMessage]							= null
+	def getDirectMessage(id:Int):DirectMessage						= null
+	def getSentDirectMessages():List[DirectMessage]				= null
+	def destroyDirectMessage(id:Int):List[DirectMessage]	= null
+	def dm(toUserId:String, text:String):DirectMessage		= null
+	def friends():List[User]															= null
+	def followers():List[User]														= null
+	def follow(user:String):User													= null
+	def friendsWith_?(user:String):Boolean								= false
+	def unfollow(user:String):User												= null
+	def getUser(id:Int):User															= null
+	def block(user:String)																= null
+	def unblock(user:String)															= null
+	def getFavorites():List[Status]												= null
+	def favorite(id:Int):Status														= null
+	def unfavorite(id:Int):Status													= null
+	
+	def publicTimeline():List[Status] = {
+		val (statusCode, result) = httpClient.get(statusesPath + "/public_timeline.xml")
+		Status.fromXMLList(XML.loadString(result))
+	}
+	
+	def user():User = {
 		val (statusCode, result) = httpClient.get(String.format("%s/%s.xml", usersPath, username.get))
 		new User(result)
 	}

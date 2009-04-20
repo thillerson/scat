@@ -1,6 +1,6 @@
 package twitter4s.domain
 
-import _root_.scala.xml.NodeSeq
+import _root_.scala.xml.{NodeSeq, Node}
 import org.joda.time._;
 
 class Status(x:NodeSeq) {
@@ -21,6 +21,7 @@ class Status(x:NodeSeq) {
 		if (text.size <= 20) {
 			text
 		}	else {
+			//TODO is this a good way to do this? The Scala way?
 			val l = List.fromString(text)
 			val (first, last) = l.splitAt(20)
 			first.mkString("","","") + "..."
@@ -30,4 +31,14 @@ class Status(x:NodeSeq) {
 	override def toString = {
 		String.format("Status(\"%s\" by %s)", shortText, user.screenName)
 	}
+}
+
+object Status {
+	
+	def fromXMLList(xml:NodeSeq) = {
+		val statuses = (xml \\ "status")
+		val statusSeq = for (statusNode:Node <- statuses) yield new Status(statusNode)
+		statusSeq.toList
+	}
+	
 }

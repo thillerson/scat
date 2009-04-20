@@ -12,7 +12,7 @@ object APITest extends TwitterMock {
 	
 	"The unauthenticated Twitter service wrapper" should {
 		doBefore { init }
-		"get the public timline" in {
+		"get the public timeline" in {
 			expect {
 				one(httpClient).get("http://twitter.com/statuses/public_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
 			}
@@ -36,13 +36,24 @@ object APITest extends TwitterMock {
 			authenticatedTwitter.authenticated_? must beTrue
 		}
 		
-		"return the currently authenticated resource" in {
+		"return the currently authenticated user resource" in {
 			expect {
 				one(httpClient).get("http://twitter.com/users/foo.xml") willReturn (200, XMLData.userXML.toString)
 			}
 			
-			val user = authenticatedTwitter.getMe
+			val user = authenticatedTwitter.user
 			user.id must_== 5815992L
+		}
+		
+		"get the user's friends timeline" in {
+			expect {
+				one(httpClient).get("http://twitter.com/statuses/friends_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+			}
+			
+			val timeline = twitter.friendsTimeline
+			timeline.size must_== 20
+			val firstStatus = timeline(0)
+			firstStatus.id must_== 1556513084L
 		}
 	}
 
