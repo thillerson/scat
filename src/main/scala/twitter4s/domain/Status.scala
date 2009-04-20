@@ -16,4 +16,18 @@ class Status(x:NodeSeq) {
   lazy val inReplyToScreenName   = (x \ "in_reply_to_screen_name").text
 
 	lazy val user									 = new User((x \ "user"))
+	
+	lazy val shortText = {
+		if (text.size <= 20) {
+			text
+		}	else {
+			val l = List.fromString(text)
+			val (first, last) = l.splitAt(20)
+			first.mkString("","","") + "..."
+		}
+	}
+
+	override def toString = {
+		String.format("Status(\"%s\" by %s)", shortText, user.screenName)
+	}
 }

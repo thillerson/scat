@@ -33,4 +33,8 @@ class User(x:NodeSeq) {
   lazy val profileBackgroundTile     = (x \ "profile_background_tile").text.toBoolean
 
 	lazy val status										 = new Status((x \ "status"))
+	
+	override def toString = {
+		String.format("User(%s)", screenName)
+	}
 }
