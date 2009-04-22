@@ -2,6 +2,7 @@ package twitter4s.httpClient
 
 import org.apache.commons.httpclient.{HttpClient, UsernamePasswordCredentials, HttpMethodBase};
 import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.cookie.CookiePolicy
 import org.apache.commons.httpclient.methods.{GetMethod, PostMethod, PutMethod, DeleteMethod};
 
 class HTTPClient(username:Option[String], password:Option[String]) {
@@ -31,10 +32,13 @@ class HTTPClient(username:Option[String], password:Option[String]) {
 	
 	protected def execute(method:HttpMethodBase):Tuple2[Int, String] = {
 		method.setDoAuthentication(hasCredentials_?)
+    method.getParams.setCookiePolicy(CookiePolicy.IGNORE_COOKIES)
+
 		if (hasCredentials_?) {
+	    client.getParams.setAuthenticationPreemptive(true)
 			client.getState.setCredentials(
 				//TODO magic values here
-				new AuthScope("twitter.com", 80, "realm"),
+				new AuthScope("twitter.com", 80, AuthScope.ANY_REALM),
 				new UsernamePasswordCredentials(username.get, password.get)
 			)
 		}
@@ -42,7 +46,7 @@ class HTTPClient(username:Option[String], password:Option[String]) {
         val status = client.executeMethod(method)
         val response = method.getResponseBodyAsString
 				(status, response)
-		//TODO handle exceptions, return correct status and actual payload
+				//TODO handle HTTP exceptions, return correct status and actual payload
     } finally {
         method releaseConnection
     }
