@@ -28,8 +28,8 @@ trait DirectMessageAPI extends TwitterAPI {
 	}
 
 	def dm(toUserId:String, text:String):DirectMessage = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 }

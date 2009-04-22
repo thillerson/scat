@@ -6,14 +6,14 @@ import twitter4s.httpClient.HTTPClient
 class Twitter(
 	uname:Option[String],
 	pass:Option[String],
-	httpc:HTTPClient) extends AccountAPI with StatusAPI with UserAPI with DirectMessageAPI {
+	httpc:HTTPClient) extends TimelineAPI with AccountAPI with StatusAPI with UserAPI with DirectMessageAPI {
 	
-	def this(username:Option[String], password:Option[String]) = this(username, password, new HTTPClient(username, password))
+	def this(uname:Option[String], pass:Option[String]) = this(uname, pass, new HTTPClient(uname, pass))
 	def this() = this(None, None)
-	def this(username:String, password:String) = this(Some(username), Some(password))
-	def this(username:String, password:String, httpClient:HTTPClient) = this(Some(username), Some(password), httpClient)
+	def this(u:String, p:String) = this(Some(u), Some(p))
+	def this(u:String, p:String, c:HTTPClient) = this(Some(u), Some(p), c)
 	
-	def hasCredentials_?():Boolean = password != None
+	def hasCredentials_?():Boolean = (uname != None && pass != None)
 	def username:Option[String] = uname
 	def password:Option[String] = pass
 	def httpClient:HTTPClient = httpc

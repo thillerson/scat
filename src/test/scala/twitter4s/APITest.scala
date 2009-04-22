@@ -84,6 +84,28 @@ object APITest extends TwitterMock {
 			val firstStatus = timeline(0)
 			firstStatus.id must_== 1556513084L
 		}
+
+		"get the user's own timeline" in {
+			expect {
+				one(httpClient).get("http://twitter.com/statuses/user_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+			}
+			
+			val timeline = authenticatedTwitter.userTimeline
+			timeline.size must_== 20
+			val firstStatus = timeline(0)
+			firstStatus.id must_== 1556513084L
+		}
+
+		"get the user's mention stream" in {
+			expect {
+				one(httpClient).get("http://twitter.com/statuses/mentions.xml") willReturn (200, XMLData.publicTimeline.toString)
+			}
+			
+			val timeline = authenticatedTwitter.mentions
+			timeline.size must_== 20
+			val firstStatus = timeline(0)
+			firstStatus.id must_== 1556513084L
+		}
 	}
 
 }

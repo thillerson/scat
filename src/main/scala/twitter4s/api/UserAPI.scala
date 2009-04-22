@@ -10,43 +10,43 @@ trait UserAPI extends TwitterAPI {
 	val usersPath = twitterUrl + "/users"
 
 	def friends():List[User] = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def followers():List[User] = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def follow(user:String):User = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def friendsWith_?(user:String):Boolean = {
-			credentialsRequired
-			true
+		credentialsRequired
+		true
 	}
 	
 	def unfollow(user:String):User = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def getUser(id:String):User = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def block(user:String):User = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def unblock(user:String):User = {
-			credentialsRequired
-			null
+		credentialsRequired
+		null
 	}
 	
 	def user():User = {
