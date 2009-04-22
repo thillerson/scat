@@ -1,0 +1,3 @@
+package twitter4s.exceptions
+
+class AuthenticationException extends Exception
