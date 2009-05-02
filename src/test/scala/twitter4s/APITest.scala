@@ -32,7 +32,6 @@ object APITest extends TwitterMock {
 			twitter.tweet("@bradumbaugh foo", 1234656L) must throwAn[AuthenticationException]
 			twitter.getStatus(12345678L) must throwAn[AuthenticationException]
 			twitter.deleteStatus(12345678L) must throwAn[AuthenticationException]
-			twitter.replies must throwAn[AuthenticationException]
 			twitter.mentions must throwAn[AuthenticationException]
 			twitter.directMessages must throwAn[AuthenticationException]
 			twitter.getDirectMessage(12345678L) must throwAn[AuthenticationException]
@@ -105,6 +104,15 @@ object APITest extends TwitterMock {
 			timeline.size must_== 20
 			val firstStatus = timeline(0)
 			firstStatus.id must_== 1556513084L
+		}
+		
+		"get a specific status" in {
+			expect {
+				one(httpClient).get("http://twitter.com/statuses/show/123456789.xml") willReturn (200, XMLData.statusWithReplyTo.toString)
+			}
+			
+			val status = authenticatedTwitter.getStatus(123456789L)
+			status.inReplyToScreenName must_== "dacort"
 		}
 	}
 

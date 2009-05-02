@@ -6,7 +6,12 @@ import twitter4s.httpClient.HTTPClient
 class Twitter(
 	uname:Option[String],
 	pass:Option[String],
-	httpc:HTTPClient) extends TimelineAPI with AccountAPI with StatusAPI with UserAPI with DirectMessageAPI {
+	httpc:HTTPClient) extends TimelineAPI
+		with AccountAPI
+		with StatusAPI
+		with UserAPI
+		with DirectMessageAPI
+		with FavoriteAPI {
 	
 	def this(uname:Option[String], pass:Option[String]) = this(uname, pass, new HTTPClient(uname, pass))
 	def this() = this(None, None)

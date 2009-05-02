@@ -9,6 +9,12 @@ trait StatusAPI extends TwitterAPI {
 	
 	val statusesPath = twitterUrl + "/statuses"
 	
+	def getStatus(statusId:Long):Status = {
+		credentialsRequired
+		val (statusCode, result) = httpClient.get("%s/show/%d.xml".format(statusesPath, statusId))
+		return new Status(XML.loadString(result))
+	}
+
 	def tweet(body:String):Status	= {
 		credentialsRequired
 		null
@@ -19,32 +25,7 @@ trait StatusAPI extends TwitterAPI {
 		null
 	}
 	
-	def getStatus(id:Long):Status	= {
-		credentialsRequired
-		null
-	}
-	
 	def deleteStatus(id:Long):Status	= {
-		credentialsRequired
-		null
-	}
-	
-	def replies():List[Status]	= {
-		credentialsRequired
-		null
-	}
-	
-	def getFavorites():List[Status] = {
-		credentialsRequired
-		null
-	}
-	
-	def favorite(id:Long):Status = {
-		credentialsRequired
-		null
-	}
-	
-	def unfavorite(id:Long):Status = {
 		credentialsRequired
 		null
 	}
