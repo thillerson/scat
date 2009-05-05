@@ -17,7 +17,8 @@ trait StatusAPI extends TwitterAPI {
 
 	def tweet(body:String):Status	= {
 		credentialsRequired
-		null
+		val (statusCode, result) = httpClient.post(statusesPath + "/update.xml", List(("status", body)))
+		return new Status(XML.loadString(result))
 	}
 	
 	def tweet(body:String, inReplyToId:Long):Status	= {

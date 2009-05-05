@@ -114,6 +114,15 @@ object APITest extends TwitterMock {
 			val status = authenticatedTwitter.getStatus(123456789L)
 			status.inReplyToScreenName must_== "dacort"
 		}
+
+		"post a tweet" in {
+			expect {
+				one(httpClient).post("http://twitter.com/statuses/update.xml", List(("status", "foo"))) willReturn (201, XMLData.statusWithReplyTo.toString)
+			}
+			
+			val status = authenticatedTwitter.tweet("foo")
+			status.inReplyToScreenName must_== "dacort"
+		}
 	}
 
 }
