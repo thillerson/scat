@@ -23,7 +23,8 @@ trait StatusAPI extends TwitterAPI {
 	
 	def tweet(body:String, inReplyToId:Long):Status	= {
 		credentialsRequired
-		null
+		val (statusCode, result) = httpClient.post(statusesPath + "/update.xml", List(("status", body), ("in_reply_to_status_id", inReplyToId)))
+		return new Status(XML.loadString(result))
 	}
 	
 	def deleteStatus(id:Long):Status	= {
