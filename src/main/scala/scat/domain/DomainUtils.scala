@@ -1,4 +1,4 @@
-package twitter4s.domain
+package scat.domain
 
 import org.joda.time.format._;
 

@@ -1,13 +1,13 @@
-package twitter4s
+package scat
 
 import org.specs._
 import org.specs.runner.{ConsoleRunner, JUnit4}
 import org.specs.mock._
 import scala.xml._
 
-import twitter4s.domain._
-import twitter4s.exceptions._
-import twitter4s.httpClient._
+import scat.domain._
+import scat.exceptions._
+import scat.httpClient._
 
 object APITest extends TwitterMock {
 	

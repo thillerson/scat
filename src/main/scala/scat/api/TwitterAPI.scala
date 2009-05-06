@@ -1,7 +1,7 @@
-package twitter4s.api
+package scat.api
 
-import twitter4s.exceptions._
-import twitter4s.httpClient._
+import scat.exceptions._
+import scat.httpClient._
 
 trait TwitterAPI {
 	

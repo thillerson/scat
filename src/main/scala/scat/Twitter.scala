@@ -1,7 +1,7 @@
-package twitter4s
+package scat
 
-import twitter4s.api._
-import twitter4s.httpClient.HTTPClient
+import scat.api._
+import scat.httpClient.HTTPClient
 
 class Twitter(
 	uname:Option[String],

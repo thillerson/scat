@@ -1,11 +1,11 @@
-package twitter4s
+package scat
 
 import org.specs._
 import org.specs.runner.{ConsoleRunner, JUnit4}
 import org.joda.time._;
 import scala.xml._
 
-import twitter4s.domain._
+import scat.domain._
 
 object TwitterObjectsTest extends Specification {
 

@@ -1,4 +1,4 @@
-package twitter4s
+package scat
 
 object XMLData {
 	val userXML = 

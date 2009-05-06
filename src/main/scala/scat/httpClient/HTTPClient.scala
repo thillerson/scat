@@ -1,4 +1,4 @@
-package twitter4s.httpClient
+package scat.httpClient
 
 import org.apache.commons.httpclient.{HttpClient, UsernamePasswordCredentials, HttpMethod, NameValuePair};
 import org.apache.commons.httpclient.auth.AuthScope;

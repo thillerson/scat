@@ -1,8 +1,8 @@
-package twitter4s.api
+package scat.api
 
 import scala.xml.XML
 
-import twitter4s.domain._
+import scat.domain._
 
 trait TimelineAPI extends TwitterAPI {
 	

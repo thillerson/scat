@@ -1,9 +1,9 @@
-package twitter4s.api
+package scat.api
 
 import _root_.scala.xml.{Node}
 import scala.xml.XML
 
-import twitter4s.domain._
+import scat.domain._
 
 trait StatusAPI extends TwitterAPI {
 	

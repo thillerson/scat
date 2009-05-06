@@ -1,4 +1,4 @@
-package twitter4s.domain
+package scat.domain
 
 import _root_.scala.xml.NodeSeq
 import org.joda.time._;

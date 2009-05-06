@@ -1,10 +1,10 @@
-package twitter4s.api
+package scat.api
 
 import _root_.scala.xml.{Node}
 import scala.xml.XML
 
-import twitter4s.domain._
-import twitter4s.httpClient.HTTPClient
+import scat.domain._
+import scat.httpClient.HTTPClient
 
 trait AccountAPI extends TwitterAPI {
 	
