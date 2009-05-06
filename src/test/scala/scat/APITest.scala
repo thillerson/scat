@@ -16,7 +16,7 @@ object APITest extends TwitterMock {
 		
 		"get the public timeline" in {
 			expect {
-				one(httpClient).get("http://twitter.com/statuses/public_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+				one(httpClient).get("http://twitter.com/statuses/public_timeline.xml") willReturn (HTTPClient.OK, XMLData.publicTimeline.toString)
 			}
 			
 			val timeline = twitter.publicTimeline
@@ -57,7 +57,7 @@ object APITest extends TwitterMock {
 		
 		"have credentials" in {
 			expect {
-				one(httpClient).get("http://twitter.com/account/verify_credentials.xml") willReturn (200, XMLData.userXML.toString)
+				one(httpClient).get("http://twitter.com/account/verify_credentials.xml") willReturn (HTTPClient.OK, XMLData.userXML.toString)
 			}
 			
 			authenticatedTwitter.hasCredentials_? must beTrue
@@ -66,7 +66,7 @@ object APITest extends TwitterMock {
 		
 		"return the currently authenticated user resource" in {
 			expect {
-				one(httpClient).get("http://twitter.com/users/foo.xml") willReturn (200, XMLData.userXML.toString)
+				one(httpClient).get("http://twitter.com/users/foo.xml") willReturn (HTTPClient.OK, XMLData.userXML.toString)
 			}
 			
 			val user = authenticatedTwitter.user
@@ -75,7 +75,7 @@ object APITest extends TwitterMock {
 		
 		"get the user's friends timeline" in {
 			expect {
-				one(httpClient).get("http://twitter.com/statuses/friends_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+				one(httpClient).get("http://twitter.com/statuses/friends_timeline.xml") willReturn (HTTPClient.OK, XMLData.publicTimeline.toString)
 			}
 			
 			val timeline = authenticatedTwitter.friendsTimeline
@@ -86,7 +86,7 @@ object APITest extends TwitterMock {
 
 		"get the user's own timeline" in {
 			expect {
-				one(httpClient).get("http://twitter.com/statuses/user_timeline.xml") willReturn (200, XMLData.publicTimeline.toString)
+				one(httpClient).get("http://twitter.com/statuses/user_timeline.xml") willReturn (HTTPClient.OK, XMLData.publicTimeline.toString)
 			}
 			
 			val timeline = authenticatedTwitter.userTimeline
@@ -97,7 +97,7 @@ object APITest extends TwitterMock {
 
 		"get the user's mention stream" in {
 			expect {
-				one(httpClient).get("http://twitter.com/statuses/mentions.xml") willReturn (200, XMLData.publicTimeline.toString)
+				one(httpClient).get("http://twitter.com/statuses/mentions.xml") willReturn (HTTPClient.OK, XMLData.publicTimeline.toString)
 			}
 			
 			val timeline = authenticatedTwitter.mentions
@@ -108,7 +108,7 @@ object APITest extends TwitterMock {
 		
 		"get a specific status" in {
 			expect {
-				one(httpClient).get("http://twitter.com/statuses/show/123456789.xml") willReturn (200, XMLData.statusWithReplyTo.toString)
+				one(httpClient).get("http://twitter.com/statuses/show/123456789.xml") willReturn (HTTPClient.OK, XMLData.statusWithReplyTo.toString)
 			}
 			
 			val status = authenticatedTwitter.getStatus(123456789L)
@@ -117,7 +117,7 @@ object APITest extends TwitterMock {
 
 		"post a tweet" in {
 			expect {
-				one(httpClient).post("http://twitter.com/statuses/update.xml", List(("status", "foo"))) willReturn (201, XMLData.statusWithReplyTo.toString)
+				one(httpClient).post("http://twitter.com/statuses/update.xml", List(("status", "foo"))) willReturn (HTTPClient.CREATED, XMLData.statusWithReplyTo.toString)
 			}
 			
 			val status = authenticatedTwitter.tweet("foo")
@@ -126,7 +126,7 @@ object APITest extends TwitterMock {
 
 		"post a tweet in reply to another" in {
 			expect {
-				one(httpClient).post("http://twitter.com/statuses/update.xml", List(("status", "foo"), ("in_reply_to_status_id", 123456789L))) willReturn (201, XMLData.statusWithReplyTo.toString)
+				one(httpClient).post("http://twitter.com/statuses/update.xml", List(("status", "foo"), ("in_reply_to_status_id", 123456789L))) willReturn (HTTPClient.CREATED, XMLData.statusWithReplyTo.toString)
 			}
 			
 			val status = authenticatedTwitter.tweet("foo", 123456789L)
@@ -135,7 +135,7 @@ object APITest extends TwitterMock {
 
 		"delete a tweet" in {
 			expect {
-				one(httpClient).delete("http://twitter.com/statuses/destroy/123456789.xml") willReturn (200, XMLData.statusWithReplyTo.toString)
+				one(httpClient).delete("http://twitter.com/statuses/destroy/123456789.xml") willReturn (HTTPClient.OK, XMLData.statusWithReplyTo.toString)
 			}
 			
 			val status = authenticatedTwitter.deleteStatus(123456789L)

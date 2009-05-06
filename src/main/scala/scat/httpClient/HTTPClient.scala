@@ -63,4 +63,5 @@ class HTTPClient(username:Option[String], password:Option[String]) {
 
 object HTTPClient {
 	val OK = 200
+	val CREATED = 201
 }

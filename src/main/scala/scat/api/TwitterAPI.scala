@@ -15,7 +15,7 @@ trait TwitterAPI {
 	def test():Boolean = ping
 	def ping():Boolean = {
 		val (status, result) = httpClient.get(twitterUrl + "/help/test.xml")
-		status == 200
+		status == HTTPClient.OK
 	}
 	
 	protected def credentialsRequired = {
