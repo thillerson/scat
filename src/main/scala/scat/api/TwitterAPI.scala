@@ -12,6 +12,12 @@ trait TwitterAPI {
 	def hasCredentials_?():Boolean
 	def httpClient:HTTPClient
 	
+	def test():Boolean = ping
+	def ping():Boolean = {
+		val (status, result) = httpClient.get(twitterUrl + "/help/test.xml")
+		status == 200
+	}
+	
 	protected def credentialsRequired = {
 		if (! hasCredentials_?) {
 			throw new AuthenticationException
