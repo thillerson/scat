@@ -11,7 +11,10 @@ class Twitter(
 		with StatusAPI
 		with UserAPI
 		with DirectMessageAPI
-		with FavoriteAPI {
+		with FavoriteAPI
+		with BlockAPI
+		with FriendshipAPI
+		with NotificationAPI {
 	
 	def this(uname:Option[String], pass:Option[String]) = this(uname, pass, new HTTPClient(uname, pass))
 	def this() = this(None, None)

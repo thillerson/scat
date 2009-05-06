@@ -50,7 +50,7 @@ trait UserAPI extends TwitterAPI {
 	}
 	
 	def user():User = {
-		val (statusCode, result) = httpClient.get(String.format("%s/%s.xml", usersPath, username.get))
+		val (statusCode, result) = httpClient.get("%s/%s.xml".format(usersPath, username.get))
 		new User(result)
 	}
 	
