@@ -26,7 +26,7 @@ class HTTPClient(username:Option[String], password:Option[String]) {
 	def put(url:String, params:List[Tuple2[String, Any]]):Tuple2[Int, String] = (200, "")
 
 	//TODO
-	def delete(url:String):Tuple2[Int, String] = (200, "")
+	def delete(url:String):Tuple2[Int, String] = execute(new DeleteMethod(url))
 	def delete(url:String, params:List[Tuple2[String, Any]]):Tuple2[Int, String] = (200, "")
 	
 	protected def execute(method:HttpMethod):Tuple2[Int, String] = {

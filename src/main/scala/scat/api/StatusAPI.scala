@@ -29,7 +29,8 @@ trait StatusAPI extends TwitterAPI {
 	
 	def deleteStatus(id:Long):Status	= {
 		credentialsRequired
-		null
+		val (statusCode, result) = httpClient.delete("%s/destroy/%s.xml".format(statusesPath, id.toString))
+		return new Status(XML.loadString(result))
 	}
 	
 }

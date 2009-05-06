@@ -132,6 +132,15 @@ object APITest extends TwitterMock {
 			val status = authenticatedTwitter.tweet("foo", 123456789L)
 			status.inReplyToScreenName must_== "dacort"
 		}
+
+		"delete a tweet" in {
+			expect {
+				one(httpClient).delete("http://twitter.com/statuses/destroy/123456789.xml") willReturn (200, XMLData.statusWithReplyTo.toString)
+			}
+			
+			val status = authenticatedTwitter.deleteStatus(123456789L)
+			status.inReplyToScreenName must_== "dacort"
+		}
 	}
 
 }
