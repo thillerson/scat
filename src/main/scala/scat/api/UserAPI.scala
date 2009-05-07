@@ -19,32 +19,12 @@ trait UserAPI extends TwitterAPI {
 		null
 	}
 	
-	def follow(user:String):User = {
-		credentialsRequired
-		null
-	}
-	
 	def friendsWith_?(user:String):Boolean = {
 		credentialsRequired
 		true
 	}
 	
-	def unfollow(user:String):User = {
-		credentialsRequired
-		null
-	}
-	
 	def getUser(id:String):User = {
-		credentialsRequired
-		null
-	}
-	
-	def block(user:String):User = {
-		credentialsRequired
-		null
-	}
-	
-	def unblock(user:String):User = {
 		credentialsRequired
 		null
 	}
