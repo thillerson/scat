@@ -15,30 +15,30 @@ class Status(x:NodeSeq) {
   lazy val inReplyToUserId       = (x \ "in_reply_to_user_id").text.toLong
   lazy val inReplyToScreenName   = (x \ "in_reply_to_screen_name").text
 
-	lazy val user									 = new User((x \ "user"))
-	
-	lazy val shortText = {
-		if (text.size <= 20) {
-			text
-		}	else {
-			//TODO is this a good way to do this? The Scala way?
-			val l = List.fromString(text)
-			val (first, last) = l.splitAt(20)
-			first.mkString("","","") + "..."
-		}
-	}
+  lazy val user                  = new User((x \ "user"))
+  
+  lazy val shortText = {
+    if (text.size <= 20) {
+      text
+    }	else {
+      //TODO is this a good way to do this? The Scala way?
+      val l = List.fromString(text)
+      val (first, last) = l.splitAt(20)
+      first.mkString("","","") + "..."
+    }
+  }
 
-	override def toString = {
-		String.format("Status(\"%s\" by %s)", shortText, user.screenName)
-	}
+  override def toString = {
+    String.format("Status(\"%s\" by %s)", shortText, user.screenName)
+  }
 }
 
 object Status {
-	
-	def fromXMLList(xml:NodeSeq) = {
-		val statuses = (xml \\ "status")
-		val statusSeq = for (statusNode:Node <- statuses) yield new Status(statusNode)
-		statusSeq.toList
-	}
-	
+  
+  def fromXMLList(xml:NodeSeq) = {
+    val statuses = (xml \\ "status")
+    val statusSeq = for (statusNode:Node <- statuses) yield new Status(statusNode)
+    statusSeq.toList
+  }
+  
 }

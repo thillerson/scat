@@ -9,10 +9,10 @@ class DirectMessage(x:NodeSeq) {
   lazy val text                 = (x \ "text").text
   lazy val createdAt            = DomainUtils.STD_DATE_TIME_FORMATTER.parseDateTime((x \ "created_at").text)
   lazy val senderScreenName     = (x \ "sender_screen_name").text
-  lazy val senderId				      = (x \ "sender_id").text.toLong
+  lazy val senderId		= (x \ "sender_id").text.toLong
   lazy val recipientScreenName  = (x \ "recipient_screen_name").text
-  lazy val recipientId					= (x \ "recipient_id").text.toLong
+  lazy val recipientId		= (x \ "recipient_id").text.toLong
 
-	lazy val sender								= new User((x \ "sender"))
-	lazy val recipient						= new User((x \ "recipient"))
+  lazy val sender		= new User((x \ "sender"))
+  lazy val recipient		= new User((x \ "recipient"))
 }

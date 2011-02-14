@@ -4,8 +4,8 @@ import _root_.scala.xml.NodeSeq
 import org.joda.time._;
 
 class User(x:NodeSeq) {
-	
-	def this(xmlString:String) = this(scala.xml.XML.loadString(xmlString))
+  
+  def this(xmlString:String)         = this(scala.xml.XML.loadString(xmlString))
 
   lazy val id                        = (x \ "id").text.toLong
   lazy val name                      = (x \ "name").text
@@ -32,9 +32,9 @@ class User(x:NodeSeq) {
   lazy val profileBackgroundImageURL = (x \ "profile_background_image_url").text
   lazy val profileBackgroundTile     = (x \ "profile_background_tile").text.toBoolean
 
-	lazy val status										 = new Status((x \ "status"))
-	
-	override def toString = {
-		String.format("User(%s)", screenName)
-	}
+  lazy val status                    = new Status((x \ "status"))
+  
+  override def toString = {
+    String.format("User(%s)", screenName)
+  }
 }
